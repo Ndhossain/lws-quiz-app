@@ -1,3 +1,4 @@
+import Image from "../../assets/images/signup.svg";
 import Button from "../Button";
 import CheckBox from "../CheckBox";
 import Form from "../Form";
@@ -9,8 +10,8 @@ export default function Signup() {
   return (
     <>
       <h1>Create an account</h1>
-      <div class="column">
-        <Illustration />
+      <div className="column">
+        <Illustration Image={Image} />
         <Form className={`${classes.signup}`}>
           <TextInput type="text" placeholder="Enter name" icon="person" />
           <TextInput
@@ -25,10 +26,12 @@ export default function Signup() {
             icon="lock_clock"
           />
           <CheckBox
-            type="checkbox"
             text="I agree to the Terms &amp; Conditions"
+            type="checkbox"
           />
-          <Button>SUBMIT NOW</Button>
+          <Button>
+            <span>SUBMIT NOW</span>
+          </Button>
           <div className="info">
             Already have an account? <a href="login.html">Login</a> instead.
           </div>
