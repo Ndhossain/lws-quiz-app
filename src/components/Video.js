@@ -2,7 +2,7 @@ import thumbnail from "../assets/images/3.jpg";
 import classes from "./styles/Video.module.css";
 export default function Video() {
   return (
-    <a href="quiz.html">
+    <>
       <div className={classes.video}>
         <img src={thumbnail} alt="Video" />
         <p>#23 React Hooks Bangla - React useReducer hook Bangla</p>
@@ -11,6 +11,6 @@ export default function Video() {
           <p>Score : Not taken yet</p>
         </div>
       </div>
-    </a>
+    </>
   );
 }
