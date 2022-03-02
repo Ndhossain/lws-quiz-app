@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Quiz from "./pages/Quiz";
 import Results from "./pages/Results";
 import Signup from "./pages/Signup";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 import "./styles/App.css";
 
 function App() {
@@ -16,11 +18,32 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
 
-            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/signup"
+              element={
+                <PublicRoute>
+                  <Signup />
+                </PublicRoute>
+              }
+            />
 
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
 
-            <Route path="/quiz" element={<Quiz />} />
+            <Route
+              path="/quiz"
+              element={
+                <PrivateRoute>
+                  <Quiz />
+                </PrivateRoute>
+              }
+            />
 
             <Route path="/results" element={<Results />} />
           </Routes>
