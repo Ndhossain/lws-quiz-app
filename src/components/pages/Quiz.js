@@ -31,7 +31,7 @@ const reducer = (state, action) => {
 };
 
 export default function Quiz() {
-  const [currentQusestion, setCurrenetQuestion] = useState(0);
+  const [currentQuestion, setCurrenetQuestion] = useState(0);
   const { id } = useParams();
   const { loading, error, questions } = useQuestionList(id);
 
@@ -47,11 +47,29 @@ export default function Quiz() {
   function handleAnswerChange(e, index) {
     dispatch({
       type: "answer",
-      questionID: currentQusestion,
+      questionID: currentQuestion,
       optionIndex: index,
       value: e.target.checked,
     });
   }
+
+  console.log();
+
+  function nextQuestion() {
+    if (currentQuestion + 1 < questions.length) {
+      setCurrenetQuestion((prevCurrent) => prevCurrent + 1);
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQuestion > 0) {
+      setCurrenetQuestion((prevCurrent) => prevCurrent - 1);
+    }
+  }
+
+  const percent = questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
+
+  console.log(percent);
 
   return (
     <>
@@ -59,13 +77,13 @@ export default function Quiz() {
       {error && <div>There was an error!</div>}
       {!loading && !error && qna && qna.length > 0 && (
         <>
-          <h1>{qna[currentQusestion].title}</h1>
+          <h1>{qna[currentQuestion].title}</h1>
           <h4>Question can have multiple answers</h4>
           <Answers
-            options={qna[currentQusestion].options}
+            options={qna[currentQuestion].options}
             handleChange={handleAnswerChange}
           />
-          <ProgressBar />
+          <ProgressBar next={nextQuestion} prev={prevQuestion} progress={percent} />
           <MiniPlayer />
         </>
       )}
