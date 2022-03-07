@@ -1,6 +1,8 @@
+import { getDatabase, ref, set } from "firebase/database";
 import _ from "lodash";
 import { useEffect, useReducer, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import useQuestionList from "../../hooks/useQuestionList";
 import Answers from "../Answers";
 import MiniPlayer from "../MiniPlayer";
@@ -34,6 +36,8 @@ export default function Quiz() {
   const [currentQuestion, setCurrenetQuestion] = useState(0);
   const { id } = useParams();
   const { loading, error, questions } = useQuestionList(id);
+  const {currentUser} = useAuth();
+  const history = useNavigate();
 
   const [qna, dispatch] = useReducer(reducer, initialState);
 
@@ -53,8 +57,6 @@ export default function Quiz() {
     });
   }
 
-  console.log();
-
   function nextQuestion() {
     if (currentQuestion + 1 < questions.length) {
       setCurrenetQuestion((prevCurrent) => prevCurrent + 1);
@@ -67,9 +69,26 @@ export default function Quiz() {
     }
   }
 
+   async function submit() {
+    const {uid} = currentUser;
+
+    const db = getDatabase();
+    const resultRef = ref(db, `result/${uid}`);
+
+    await set(resultRef, {
+      [id]: qna,
+    });
+
+    history({
+      pathName : `result/${id}`,
+      state: {
+        qna,
+      }
+    })
+  }
+
   const percent = questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
 
-  console.log(percent);
 
   return (
     <>
@@ -83,7 +102,7 @@ export default function Quiz() {
             options={qna[currentQuestion].options}
             handleChange={handleAnswerChange}
           />
-          <ProgressBar next={nextQuestion} prev={prevQuestion} progress={percent} />
+          <ProgressBar next={nextQuestion} prev={prevQuestion} progress={percent} submit={submit} />
           <MiniPlayer />
         </>
       )}
