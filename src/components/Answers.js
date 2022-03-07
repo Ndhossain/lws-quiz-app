@@ -2,6 +2,7 @@ import CheckBox from "./CheckBox";
 import classes from "./styles/Answers.module.css";
 
 export default function Answers({ options = [], handleChange }) {
+  console.log("component rendered");
   return (
     <div className={classes.answers}>
       {options.map((option, index) => (
@@ -10,7 +11,7 @@ export default function Answers({ options = [], handleChange }) {
           className={classes.answer}
           value={index}
           onChange={(e) => handleChange(e, index)}
-          type="checkbox"
+          checked={option.checked}
           key={index}
         />
       ))}

@@ -1,7 +1,8 @@
 export default function CheckBox({ text, className, ...rest }) {
+  console.log("CheckBox rendered");
   return (
     <label className={className}>
-      <input {...rest} /> <span>{text}</span>
+      <input type="checkbox" {...rest} /> <span>{text}</span>
     </label>
   );
 }

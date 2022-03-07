@@ -26,7 +26,6 @@ const reducer = (state, action) => {
         action.value;
 
       return questions;
-
     default:
       return state;
   }
@@ -36,8 +35,9 @@ export default function Quiz() {
   const [currentQuestion, setCurrenetQuestion] = useState(0);
   const { id } = useParams();
   const { loading, error, questions } = useQuestionList(id);
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const history = useNavigate();
+  console.log(history)
 
   const [qna, dispatch] = useReducer(reducer, initialState);
 
@@ -69,8 +69,8 @@ export default function Quiz() {
     }
   }
 
-   async function submit() {
-    const {uid} = currentUser;
+  async function submit() {
+    const { uid } = currentUser;
 
     const db = getDatabase();
     const resultRef = ref(db, `result/${uid}`);
@@ -80,15 +80,15 @@ export default function Quiz() {
     });
 
     history({
-      pathName : `result/${id}`,
+      pathname: `results/${id}`,
       state: {
         qna,
-      }
-    })
+      },
+    });
   }
 
-  const percent = questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
-
+  const percent =
+    questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
 
   return (
     <>
@@ -102,7 +102,12 @@ export default function Quiz() {
             options={qna[currentQuestion].options}
             handleChange={handleAnswerChange}
           />
-          <ProgressBar next={nextQuestion} prev={prevQuestion} progress={percent} submit={submit} />
+          <ProgressBar
+            next={nextQuestion}
+            prev={prevQuestion}
+            progress={percent}
+            submit={submit}
+          />
           <MiniPlayer />
         </>
       )}
