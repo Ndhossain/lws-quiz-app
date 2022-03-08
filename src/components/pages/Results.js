@@ -4,13 +4,18 @@ import Analysis from "../Analysis";
 import Summary from "../Summary";
 
 export default function Results() {
-  const { location } = useLocation();
-  console.log(useLocation)
-  const {state} = location;
+  const { state } = useLocation();
+  console.log(useLocation())
+  console.log(state);
   const { qna } = state;
   const { id } = useParams();
+  console.log(id);
+  console.log(useAnswers(id))
 
   const { loading, error, answers } = useAnswers(id);
+  console.log(error);
+  console.log(loading);
+  console.log(answers);
 
   return (
     <>

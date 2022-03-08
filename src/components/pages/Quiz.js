@@ -37,6 +37,7 @@ export default function Quiz() {
   const { loading, error, questions } = useQuestionList(id);
   const { currentUser } = useAuth();
   const history = useNavigate();
+  console.log(loading);
 
   const [qna, dispatch] = useReducer(reducer, initialState);
 
@@ -77,13 +78,8 @@ export default function Quiz() {
     await set(resultRef, {
       [id]: qna,
     });
-
-    history({
-      pathname: `/results/${id}`,
-      state: {
-        qna,
-      },
-    });
+    console.log(qna);
+    history(`/results/${id}`, { state: qna });
   }
 
   const percent =
