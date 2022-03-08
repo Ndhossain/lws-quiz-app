@@ -37,7 +37,6 @@ export default function Quiz() {
   const { loading, error, questions } = useQuestionList(id);
   const { currentUser } = useAuth();
   const history = useNavigate();
-  console.log(history)
 
   const [qna, dispatch] = useReducer(reducer, initialState);
 
@@ -80,7 +79,7 @@ export default function Quiz() {
     });
 
     history({
-      pathname: `results/${id}`,
+      pathname: `/results/${id}`,
       state: {
         qna,
       },
