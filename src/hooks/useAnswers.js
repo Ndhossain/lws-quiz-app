@@ -11,7 +11,6 @@ export default function useAnswers(videoID) {
       const db = getDatabase();
       const answerRef = ref(db, `answers/${videoID}/questions`);
       const answerQuery = query(answerRef, orderByKey());
-      console.log(answerQuery);
 
       try {
         setError(false);
@@ -20,7 +19,6 @@ export default function useAnswers(videoID) {
         // firebase database
         const snapshot = await get(answerQuery);
         setLoading(false);
-        console.log(snapshot);
         if (snapshot.exists()) {
           setAnswers((prevAnswers) => {
             return [...prevAnswers, ...Object.values(snapshot.val())];

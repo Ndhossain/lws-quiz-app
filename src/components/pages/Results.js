@@ -5,25 +5,17 @@ import Summary from "../Summary";
 
 export default function Results() {
   const { state } = useLocation();
-  console.log(useLocation())
-  console.log(state);
   const { qna } = state;
   const { id } = useParams();
-  console.log(id);
-  console.log(useAnswers(id))
 
   const { loading, error, answers } = useAnswers(id);
-  console.log(error);
-  console.log(loading);
-  console.log(answers);
 
   return (
     <>
       {loading && <div>Loading ...</div>}
       {error && <div>There was an error</div>}
-      {answers &&
-        answers.length >
-          0(
+      {answers && (answers.length > 0) &&
+          (
             <>
               <Summary />
               <Analysis />
