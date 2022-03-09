@@ -37,7 +37,6 @@ export default function Quiz() {
   const { loading, error, questions } = useQuestionList(id);
   const { currentUser } = useAuth();
   const history = useNavigate();
-  console.log(loading);
 
   const [qna, dispatch] = useReducer(reducer, initialState);
 
@@ -94,6 +93,7 @@ export default function Quiz() {
           <h1>{qna[currentQuestion].title}</h1>
           <h4>Question can have multiple answers</h4>
           <Answers
+            input={true}
             options={qna[currentQuestion].options}
             handleChange={handleAnswerChange}
           />
@@ -103,7 +103,7 @@ export default function Quiz() {
             progress={percent}
             submit={submit}
           />
-          <MiniPlayer />
+          <MiniPlayer id={id} title={qna[currentQuestion].title} />
         </>
       )}
     </>
