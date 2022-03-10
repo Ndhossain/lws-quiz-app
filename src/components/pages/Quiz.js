@@ -77,7 +77,6 @@ export default function Quiz() {
     await set(resultRef, {
       [id]: qna,
     });
-    console.log(qna);
     history(`/results/${id}`, { state: qna });
   }
 
@@ -103,7 +102,7 @@ export default function Quiz() {
             progress={percent}
             submit={submit}
           />
-          <MiniPlayer id={id} title={qna[currentQuestion].title} />
+          <MiniPlayer id={id} />
         </>
       )}
     </>
