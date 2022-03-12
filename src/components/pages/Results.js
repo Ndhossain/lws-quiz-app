@@ -9,7 +9,6 @@ export default function Results() {
   const { id } = useParams();
 
   const { loading, error, answers } = useAnswers(id);
-  console.log(answers);
 
   function  calculate() {
     let score = 0;
